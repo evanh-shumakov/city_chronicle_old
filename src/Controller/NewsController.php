@@ -17,4 +17,15 @@ class NewsController extends AbstractController
             'newsList' => $newsRepository->findAll(),
         ]);
     }
+
+    #[Route('/news/{newsId}')]
+    public function show(
+        NewsRepository $newsRepository,
+        int $newsId,
+    ): Response
+    {
+        return $this->render('news/show.html.twig', [
+            'news' => $newsRepository->find($newsId),
+        ]);
+    }
 }
