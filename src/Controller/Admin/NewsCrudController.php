@@ -18,10 +18,15 @@ class NewsCrudController extends AbstractCrudController
     {
         $isPageEdit = $pageName === Crud::PAGE_EDIT;
         $isPageNew = $pageName === Crud::PAGE_NEW;
+        $dateField = Field\DateTimeField::new('dateTime');
+        $dateField->setFormTypeOption('attr', ['readonly' => 'readonly']);
+
+        if ($isPageNew) {
+            $dateField->setFormTypeOption('data', new \DateTime());
+        }
 
         yield Field\TextField::new('name');
-        yield Field\DateTimeField::new('dateTime')
-            ->setFormTypeOption('disabled', $isPageEdit || $isPageNew);
+        yield $dateField;
         yield Field\TextareaField::new('description');
     }
 }
