@@ -10,21 +10,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class NewsController extends AbstractController
 {
     #[Route('/', name: 'news_list')]
-    public function index(NewsRepository $newsRepository): Response
+    public function showList(NewsRepository $newsRepository): Response
     {
-        return $this->render('news/index.html.twig', [
+        return $this->render('news/list.html.twig', [
             'controller_name' => 'NewsController',
             'newsList' => $newsRepository->findAll(),
         ]);
     }
 
-    #[Route('/news/{newsId}')]
-    public function show(
+    #[Route('/news/{newsId}', 'news_detail')]
+    public function showDetail(
         NewsRepository $newsRepository,
         int $newsId,
     ): Response
     {
-        return $this->render('news/show.html.twig', [
+        return $this->render('news/detail.html.twig', [
             'news' => $newsRepository->find($newsId),
         ]);
     }
