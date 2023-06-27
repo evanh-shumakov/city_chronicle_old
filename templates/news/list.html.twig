@@ -6,7 +6,7 @@
     <h1>News</h1>
     {% for news in newsList %}
         <article>
-            <h2><a href="{{ path('news_detail', { newsId: news.id }) }}">{{ news.name }}</a></h2>
+            <h2><a href="{{ path('news_detail', { id: news.id }) }}">{{ news.name }}</a></h2>
             <p>{{ news.description }}</p>
         </article>
     {% endfor %}

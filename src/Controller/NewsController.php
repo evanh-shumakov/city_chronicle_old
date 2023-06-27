@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use App\Repository\NewsRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,14 +20,9 @@ class NewsController extends AbstractController
         ]);
     }
 
-    #[Route('/news/{newsId}', 'news_detail')]
-    public function showDetail(
-        NewsRepository $newsRepository,
-        int $newsId,
-    ): Response
+    #[Route('/news/{id}', 'news_detail')]
+    public function showDetail(#[MapEntity] News $news): Response
     {
-        return $this->render('news/detail.html.twig', [
-            'news' => $newsRepository->find($newsId),
-        ]);
+        return $this->render('news/detail.html.twig', ['news' => $news]);
     }
 }
