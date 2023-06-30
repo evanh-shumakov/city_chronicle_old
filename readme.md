@@ -1,0 +1,1 @@
+Default admin credential is **email:** owner@mail.com **password:** owner - change them after deploying application.
