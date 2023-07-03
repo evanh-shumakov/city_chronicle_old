@@ -106,6 +106,32 @@ article {
     font-size: 16px;
 }
 
+/* Auth page begin */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%; /* or any other value */
+    margin: auto;
+}
+
+.auth-form h1 {
+    white-space: nowrap;
+}
+
+main .auth-form input {
+    margin-bottom: 5px;
+}
+
+form .form-control {
+    margin: 0;
+}
+
+/* Auth page end */
+
+
+
 /* Responsive styles */
 
 @media screen and (max-width: 768px) {
