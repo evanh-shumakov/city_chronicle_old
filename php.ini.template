@@ -1,0 +1,7 @@
+[xdebug]
+zend_extension="xdebug.so" ; or full path to the xdebug extension
+xdebug.mode=debug
+xdebug.start_with_request=yes
+xdebug.client_host=localhost
+xdebug.client_port=9003 ; Make sure this port is free or adjust to your needs
+xdebug.log=/tmp/xdebug.log
