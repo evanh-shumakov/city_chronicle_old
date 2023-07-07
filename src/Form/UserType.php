@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Validator\Constraints;
 
 class UserType extends AbstractType
 {
@@ -14,7 +15,19 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', Type\EmailType::class)
-            ->add('password', Type\PasswordType::class)
+            ->add('newPassword', Type\PasswordType::class, [
+                'required' => false,
+                'mapped' => false,
+                'empty_data' => '',
+                'constraints' => [
+                    new Constraints\EqualTo('repeatPassword', message: "Passwords must match."),
+                ]
+            ])
+            ->add('repeatPassword', Type\PasswordType::class, [
+                'required' => false,
+                'mapped' => false,
+                'empty_data' => '',
+            ])
             ->add('save', Type\SubmitType::class);
     }
 
