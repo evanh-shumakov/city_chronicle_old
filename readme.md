@@ -15,3 +15,6 @@ More over before to public the result it should ask me for approvement in its ad
 
 Default admin credential is **email:** owner@mail.com **password:** owner - change them after deploying application.
 
+[Symfony/Panther](https://github.com/symfony/panther) is used to parse https://my.energo-pro.ge/ow/#/disconns , 
+so it's required to install Chrome browser driver: `$ sudo apt-get install -y chromium-chromedriver`
+
