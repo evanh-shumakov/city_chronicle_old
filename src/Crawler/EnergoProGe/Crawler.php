@@ -18,6 +18,7 @@ class Crawler
     const CONTENT_SELECTOR = ".page-alert-info .page-alert-info-wrap-wrap .page-alert-info-wrap";
 
     const BUTTON_SELECTOR = ".page-alert-wrap .page-alert-togglers-wrap";
+
     const KUTAISI = 'ქუთაისი';
 
     private string $city;
