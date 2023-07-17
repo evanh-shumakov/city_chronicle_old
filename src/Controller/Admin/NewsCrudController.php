@@ -25,8 +25,8 @@ class NewsCrudController extends AbstractCrudController
             $dateField->setFormTypeOption('data', new \DateTime());
         }
 
-        yield Field\TextField::new('name');
+        yield Field\TextField::new('title');
         yield $dateField;
-        yield Field\TextareaField::new('description');
+        yield Field\TextareaField::new('content');
     }
 }

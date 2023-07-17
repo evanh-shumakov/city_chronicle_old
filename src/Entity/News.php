@@ -15,39 +15,72 @@ class News
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+    private ?string $preview = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $content = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $sourceUrl = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
     private ?\DateTimeInterface $dateTime = null;
+
+    public function __toString(): string
+    {
+        return $this->title . ' ' . $this->dateTime->format("Y-m-d H:i:s");
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): static
+    public function setTitle(string $title): static
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPreview(): ?string
     {
-        return $this->description;
+        return $this->preview;
     }
 
-    public function setDescription(string $description): static
+    public function setPreview(?string $preview): static
     {
-        $this->description = $description;
+        $this->preview = $preview;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    public function getSourceUrl(): ?string
+    {
+        return $this->sourceUrl;
+    }
+
+    public function setSourceUrl(?string $sourceUrl): static
+    {
+        $this->sourceUrl = $sourceUrl;
 
         return $this;
     }
@@ -62,10 +95,5 @@ class News
         $this->dateTime = $dateTime;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->name . ' ' . $this->dateTime->format("Y-m-d H:i:s");
     }
 }
