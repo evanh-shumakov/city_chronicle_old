@@ -7,7 +7,7 @@
     {% for news in newsList %}
         <article>
             <h2><a href="{{ path('news_detail', { id: news.id }) }}">{{ news.title }}</a></h2>
-            <p>{{ news.content }}</p>
+            <p>{{ news.preview }}</p>
         </article>
     {% endfor %}
 {% endblock %}

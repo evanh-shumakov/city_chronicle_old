@@ -4,5 +4,10 @@
 
 {% block body %}
     <h1>{{ news.title }}</h1>
+    <p>{{ news.preview }}</p>
     <p>{{ news.content | raw }}</p>
+    <p>
+        The information provided on this page is originally sourced from
+        <a href="{{ news.sourceUrl }}" target="_blank">{{ news.sourceUrl }}</a>
+    </p>
 {% endblock %}
