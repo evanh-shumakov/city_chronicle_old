@@ -15,6 +15,11 @@ class OutageCollection implements \Iterator
         $this->collection[] = $param;
     }
 
+    public function count(): int
+    {
+        return count($this->collection);
+    }
+
     public function current(): Outage
     {
         return $this->collection[$this->pointer];

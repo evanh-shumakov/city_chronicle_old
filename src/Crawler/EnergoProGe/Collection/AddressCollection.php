@@ -43,4 +43,9 @@ class AddressCollection implements \Iterator
     {
         return implode(", ", $this->collection);
     }
+
+    public function implode(string $separator): string
+    {
+        return implode($separator, $this->collection);
+    }
 }
