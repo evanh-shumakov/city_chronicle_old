@@ -11,6 +11,7 @@ body {
     max-width: 960px;
     margin: 0 auto;
     padding: 0 10px;
+    position: relative;
 }
 
 header {
@@ -190,6 +191,22 @@ form .form-control {
 }
 
 /* user profile form end */
+
+/* Styles for the source URL section */
+.source-url {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+.source-url a {
+    margin-left: 5px;
+}
 
 /* Responsive styles */
 
