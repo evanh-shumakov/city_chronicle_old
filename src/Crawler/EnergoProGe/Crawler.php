@@ -23,9 +23,23 @@ class Crawler
 
     private string $city;
 
+    private \DateTime $dateFrom;
+
+    private \DateTime $dateTo;
+
     public function setCity(string $city): void
     {
         $this->city = $city;
+    }
+
+    public function setDateFrom(\DateTime $dateFrom): void
+    {
+        $this->dateFrom = $dateFrom;
+    }
+
+    public function setDateTo(\DateTime $dateTo): void
+    {
+        $this->dateTo = $dateTo;
     }
 
     public function fetchOutageList(): OutageCollection
@@ -70,6 +84,11 @@ class Crawler
         $addresses = $this->parseAddresses($content);
         $dateStart = $this->parseStartDateTime($content);
         $dateEnd = $this->parseEndDateTime($content);
+
+        if (! $this->isDateSatisfy($dateStart)) {
+            return null;
+        }
+
         return new Outage($dateStart, $dateEnd, $city, $addresses);
     }
 
@@ -103,5 +122,11 @@ class Crawler
         $right = trim(explode($startIndicator, $content)[1]);
         $dateTime = substr($right, 0, $dateStringLength);
         return \DateTime::createFromFormat("Y-m-d H:i", $dateTime);
+    }
+
+    private function isDateSatisfy(\DateTime $dateStart): bool
+    {
+        return $this->dateFrom <= $dateStart
+            && $this->dateTo >= $dateStart;
     }
 }

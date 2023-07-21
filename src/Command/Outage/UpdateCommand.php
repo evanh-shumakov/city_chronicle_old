@@ -29,6 +29,8 @@ class UpdateCommand extends Command
         $crawler = new EnergoProGe\Crawler();
 
         $crawler->setCity($crawler::KUTAISI);
+        $crawler->setDateFrom((new \DateTime('tomorrow'))->setTime(0, 0));
+        $crawler->setDateTo((new \DateTime('tomorrow'))->setTime(23, 59));
         $outages = $crawler->fetchOutageList();
         foreach ($outages as $outage) {
             $news = NewsFactory::makeNews($outage);
