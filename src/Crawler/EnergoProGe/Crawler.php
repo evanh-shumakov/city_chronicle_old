@@ -85,7 +85,8 @@ readonly class Crawler
         $dateStart = $this->parseStartDateTime($content);
         $dateEnd = $this->parseEndDateTime($content);
 
-        if (! $this->isDateSatisfy($dateStart)) {
+        if (! $this->isDateSatisfy($dateStart)
+            || $addresses->count() === 0) {
             return null;
         }
 

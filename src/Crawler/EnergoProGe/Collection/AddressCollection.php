@@ -14,6 +14,11 @@ class AddressCollection implements \Iterator
     {
         $this->collection[] = $address;
     }
+    public function count(): int
+    {
+        return count($this->collection);
+    }
+
     public function current(): Address
     {
         return $this->collection[$this->pointer];
