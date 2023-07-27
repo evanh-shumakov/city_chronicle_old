@@ -9,7 +9,7 @@ use App\Crawler\EnergoProGe\Entity\Outage;
 use Symfony\Component\Panther\Client;
 use Facebook\WebDriver\WebDriverBy;
 
-class Crawler
+readonly class Crawler
 {
     const OUTAGE_LIST_URL = "https://my.energo-pro.ge/ow/#/disconns";
 
@@ -21,11 +21,11 @@ class Crawler
 
     const KUTAISI = 'ქუთაისი';
 
-    private string $city;
+    public string $city;
 
-    private \DateTime $dateFrom;
+    public \DateTime $dateFrom;
 
-    private \DateTime $dateTo;
+    public \DateTime $dateTo;
 
     public function setCity(string $city): void
     {
@@ -59,7 +59,7 @@ class Crawler
         return $outages;
     }
 
-    private function clickButtonsToLoadContent(Client $client): void
+    public function clickButtonsToLoadContent(Client $client): void
     {
         $crawler = $client->getCrawler();
         $buttons = $crawler->filter(self::BUTTON_SELECTOR);
@@ -70,7 +70,7 @@ class Crawler
         }
     }
 
-    private function composeOutage(mixed $element): ?Outage
+    public function composeOutage(mixed $element): ?Outage
     {
         $cityDriver = WebDriverBy::cssSelector(self::CITY_SELECTOR);
         $city = trim($element->findElement($cityDriver)->getText());
@@ -92,7 +92,7 @@ class Crawler
         return new Outage($dateStart, $dateEnd, $city, $addresses);
     }
 
-    private function parseAddresses(string $content): AddressCollection
+    public function parseAddresses(string $content): AddressCollection
     {
         $startIndicator = "გათიშვის არეალი:";
         $endIndicator = "დასახელება:";
@@ -106,7 +106,7 @@ class Crawler
         return $addressCollection;
     }
 
-    private function parseStartDateTime(string $content): \DateTime
+    public function parseStartDateTime(string $content): \DateTime
     {
         $startIndicator = "ჩაჭრის თარიღი :";
         $endIndicator = "აღდგენის თარიღი :";
@@ -115,7 +115,7 @@ class Crawler
         return \DateTime::createFromFormat("Y-m-d H:i", $dateTime);
     }
 
-    private function parseEndDateTime(string $content): \DateTime
+    public function parseEndDateTime(string $content): \DateTime
     {
         $startIndicator = "აღდგენის თარიღი :";
         $dateStringLength = 16;
@@ -124,7 +124,7 @@ class Crawler
         return \DateTime::createFromFormat("Y-m-d H:i", $dateTime);
     }
 
-    private function isDateSatisfy(\DateTime $dateStart): bool
+    public function isDateSatisfy(\DateTime $dateStart): bool
     {
         return $this->dateFrom <= $dateStart
             && $this->dateTo >= $dateStart;
