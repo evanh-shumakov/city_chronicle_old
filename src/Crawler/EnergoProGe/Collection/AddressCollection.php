@@ -8,7 +8,7 @@ class AddressCollection implements \Iterator
 {
     private array $collection = [];
 
-    private int $pointer = 0;
+    private int $key = 0;
 
     public function add(Address $address): void
     {
@@ -19,38 +19,45 @@ class AddressCollection implements \Iterator
         return count($this->collection);
     }
 
-    public function current(): Address
+    /**
+     * @return array<Address>
+     */
+    public function toArray(): array
     {
-        return $this->collection[$this->pointer];
-    }
-
-    public function next(): void
-    {
-        $this->pointer++;
-    }
-
-    public function key(): mixed
-    {
-        return $this->pointer;
-    }
-
-    public function valid(): bool
-    {
-        return isset($this->collection[$this->pointer]);
-    }
-
-    public function rewind(): void
-    {
-        $this->pointer = 0;
-    }
-
-    public function __toString(): string
-    {
-        return implode(", ", $this->collection);
+        return $this->collection;
     }
 
     public function implode(string $separator): string
     {
-        return implode($separator, $this->collection);
+        $list = [];
+        foreach ($this as $address) {
+            $list[] = $address->origin;
+        }
+        return implode($separator, $list);
+    }
+
+    public function current(): Address
+    {
+        return $this->collection[$this->key];
+    }
+
+    public function next(): void
+    {
+        ++ $this->key;
+    }
+
+    public function key(): mixed
+    {
+        return $this->key;
+    }
+
+    public function valid(): bool
+    {
+        return isset($this->collection[$this->key]);
+    }
+
+    public function rewind(): void
+    {
+        $this->key = 0;
     }
 }

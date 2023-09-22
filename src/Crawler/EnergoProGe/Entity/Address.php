@@ -2,15 +2,9 @@
 
 namespace App\Crawler\EnergoProGe\Entity;
 
-readonly class Address
+final readonly class Address
 {
-    public function __construct(
-        public string $street,
-    ) {
-    }
-
-    public function __toString(): string
+    public function __construct(public string $origin)
     {
-        return $this->street;
     }
 }
