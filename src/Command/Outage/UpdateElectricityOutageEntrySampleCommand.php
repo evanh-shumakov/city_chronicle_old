@@ -41,7 +41,7 @@ class UpdateElectricityOutageEntrySampleCommand extends Command
             return Command::SUCCESS;
         }
 
-        $content = $outages->current()->contentOriginal;
+        $content = $outages->current()->content->original;
         $filesystem->dumpFile(self::FILE, $content);
 
         $io->success(sprintf('File have been saved (%s)', self::FILE));
