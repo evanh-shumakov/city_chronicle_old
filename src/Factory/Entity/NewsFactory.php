@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Factory;
+namespace App\Factory\Entity;
 
 use App\Entity\News;
 use App\Interface\NewsSource;
 
-class NewsFactory
+final class NewsFactory
 {
     static public function makeNews(NewsSource $source): News
     {
