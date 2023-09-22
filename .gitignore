@@ -1,5 +1,6 @@
 /.idea/
 /php.ini
+/upload
 
 ###> symfony/framework-bundle ###
 /.env.local
