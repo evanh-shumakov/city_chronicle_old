@@ -3,7 +3,8 @@
 namespace App\Command\Outage;
 
 use App\Crawler\EnergoProGe;
-use App\Factory\NewsFactory;
+use App\Crawler\EnergoProGe\Enum\ServiceCenter;
+use App\Factory\Entity\NewsFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -18,20 +19,23 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class UpdateCommand extends Command
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
+        readonly EntityManagerInterface $entityManager,
     ) {
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(
+        InputInterface $input,
+        OutputInterface $output
+    ): int
     {
         $io = new SymfonyStyle($input, $output);
         $crawler = new EnergoProGe\Crawler();
 
-        $crawler->setCity($crawler::KUTAISI);
-        $crawler->setDateFrom((new \DateTime('tomorrow'))->setTime(0, 0));
-        $crawler->setDateTo((new \DateTime('tomorrow'))->setTime(23, 59));
-        $outages = $crawler->fetchOutageList();
+        $outages = $crawler->fetchOutages()
+            ->getByServiceCentre(ServiceCenter::KUTAISI->value)
+            ->getByDate(new \DateTime('today'));
+
         foreach ($outages as $outage) {
             $news = NewsFactory::makeNews($outage);
             $this->entityManager->persist($news);
