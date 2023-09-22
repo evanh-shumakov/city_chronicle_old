@@ -6,34 +6,30 @@ use App\Crawler\EnergoProGe\Collection\AddressCollection;
 use App\Crawler\EnergoProGe\Crawler;
 use App\Interface\NewsSource;
 
-readonly class Outage implements NewsSource
+final readonly class Outage implements NewsSource
 {
-    public function __construct(
-        public \DateTime $dateStart,
-        public \DateTime $dateEnd,
-        public string $city,
-        public AddressCollection $addresses,
-    ){
+    public function __construct(public Content $content)
+    {
     }
 
     public function composeNewsTitle(): string
     {
-        return "Power Outage " . $this->dateStart->format("F j");
+        return "Power Outage " . $this->content->startDate->format("F j");
     }
 
     public function composeNewsPreview(): string
     {
         return <<<HEREDOC
             Be aware that there is a planned power outage for several addresses
-            in Kutaisi on {$this->dateStart->format('F j')} 
-            from {$this->dateStart->format('H:i')}
-            to {$this->dateEnd->format('H:i')}:
+            in Kutaisi on {$this->content->startDate->format('F j')} 
+            from {$this->content->startDate->format('H:i')}
+            to {$this->content->endDate->format('H:i')}:
             HEREDOC;
     }
 
     public function composeNewsContent(): string
     {
-        return $this->addresses->implode("<br>");
+        return $this->content->addresses->implode("<br>");
     }
 
     public function getSourceUrl(): string
