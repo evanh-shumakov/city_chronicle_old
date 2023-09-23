@@ -2,6 +2,7 @@
 
 namespace App\Controller\UserProfile;
 
+use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class UserProfileController extends AbstractController
 {
@@ -20,32 +20,34 @@ class UserProfileController extends AbstractController
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $hasher,
     ): Response {
-        if (! $this->getUser() instanceof PasswordAuthenticatedUserInterface) {
+        $user = $this->getUser();
+        if (! $user instanceof User) {
             throw $this->createAccessDeniedException();
         }
 
-        $form = $this->handleForm($request, $entityManager, $hasher);
+        $form = $this->handleForm($request, $user, $entityManager, $hasher);
 
         return $this->render('user_profile/user_profile.html.twig', [
             'controller_name' => 'UserProfileController',
-            'user' => $this->getUser(),
+            'user' => $user,
             'form' => $form,
         ]);
     }
 
     private function handleForm(
         Request $request,
+        User $user,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $hasher,
     ): FormInterface
     {
-        $form = $this->createForm(UserType::class, $this->getUser());
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($newPassword = $form->get('newPassword')->getData()) {
-                $hashedPassword = $hasher->hashPassword($this->getUser(), $newPassword);
-                $this->getUser()->setPassword($hashedPassword);
+                $hashedPassword = $hasher->hashPassword($user, $newPassword);
+                $user->setPassword($hashedPassword);
             }
             $entityManager->flush();
         }
