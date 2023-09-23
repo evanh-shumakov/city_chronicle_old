@@ -5,7 +5,7 @@ namespace App\Crawler\EnergoProGe;
 use App\Crawler\EnergoProGe\Collection\ContentCollection;
 use App\Crawler\EnergoProGe\Collection\OutageCollection;
 use App\Crawler\EnergoProGe\Factory\Entity\ContentFactory;
-use App\Crawler\EnergoProGe\Factory\Entity\Entity\OutageFactory;
+use App\Crawler\EnergoProGe\Factory\Entity\OutageFactory;
 use Symfony\Component\Panther\Client;
 
 final readonly class Crawler
