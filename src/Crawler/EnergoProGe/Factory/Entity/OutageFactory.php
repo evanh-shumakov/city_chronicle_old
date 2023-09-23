@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Crawler\EnergoProGe\Factory\Entity\Entity;
+namespace App\Crawler\EnergoProGe\Factory\Entity;
 
 use App\Crawler\EnergoProGe\Collection\ContentCollection;
 use App\Crawler\EnergoProGe\Collection\OutageCollection;
