@@ -15,18 +15,13 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', Type\EmailType::class)
-            ->add('newPassword', Type\PasswordType::class, [
-                'required' => false,
+            ->add('newPassword', Type\RepeatedType::class, [
+                'type' => Type\PasswordType::class,
                 'mapped' => false,
-                'empty_data' => '',
-                'constraints' => [
-                    new Constraints\EqualTo('repeatPassword', message: "Passwords must match."),
-                ]
-            ])
-            ->add('repeatPassword', Type\PasswordType::class, [
+                'invalid_message' => 'Passwords must match.',
                 'required' => false,
-                'mapped' => false,
-                'empty_data' => '',
+                'first_options'  => ['label' => 'New Password'],
+                'second_options' => ['label' => 'Repeat New Password'],
             ])
             ->add('save', Type\SubmitType::class);
     }
