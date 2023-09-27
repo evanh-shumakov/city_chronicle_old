@@ -4,6 +4,9 @@ namespace App\Crawler\EnergoProGe\Collection;
 
 use App\Crawler\EnergoProGe\Entity\Content;
 
+/**
+ * @implements \Iterator<int, Content>
+ */
 final class ContentCollection implements \Iterator
 {
     /**
