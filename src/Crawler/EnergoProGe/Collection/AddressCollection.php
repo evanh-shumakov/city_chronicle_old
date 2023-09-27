@@ -4,8 +4,14 @@ namespace App\Crawler\EnergoProGe\Collection;
 
 use App\Crawler\EnergoProGe\Entity\Address;
 
+/**
+ * @implements \Iterator<int, Address>
+ */
 class AddressCollection implements \Iterator
 {
+    /**
+     * @var Address[]
+     */
     private array $collection = [];
 
     private int $key = 0;
