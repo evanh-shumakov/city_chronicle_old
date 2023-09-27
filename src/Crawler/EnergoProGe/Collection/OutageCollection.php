@@ -4,6 +4,9 @@ namespace App\Crawler\EnergoProGe\Collection;
 
 use App\Crawler\EnergoProGe\Entity\Outage;
 
+/**
+ * @implements \Iterator<int, Outage>
+ */
 class OutageCollection implements \Iterator
 {
     /**
