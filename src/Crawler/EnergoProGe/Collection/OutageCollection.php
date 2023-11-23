@@ -48,7 +48,11 @@ class OutageCollection implements \Iterator
         $date = $dateTime->format($format);
         $outages = new self();
         foreach ($this as $outage) {
-            if ($outage->content->startDate->format($format) === $date) {
+            $startDate = $outage->content->startDate;
+            if (is_null($startDate)) {
+                continue;
+            }
+            if ($startDate->format($format) === $date) {
                 $outages->add($outage);
             }
         }
