@@ -13,10 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(
-    name: 'app:outage:update',
-    description: 'Update outages news',
-)]
+#[AsCommand(name: 'app:outage:update', description: 'Update outages news')]
 class UpdateCommand extends Command
 {
     protected function configure(): void
@@ -37,8 +34,7 @@ class UpdateCommand extends Command
     protected function execute(
         InputInterface $input,
         OutputInterface $output
-    ): int
-    {
+    ): int {
         $io = new SymfonyStyle($input, $output);
         $crawler = new EnergoProGe\Crawler();
 
@@ -50,6 +46,7 @@ class UpdateCommand extends Command
             $news = NewsFactory::makeNews($outage);
             $this->entityManager->persist($news);
         }
+
         $this->entityManager->flush();
 
         $io->success(sprintf("Added %d new outages.", $outages->count()));
