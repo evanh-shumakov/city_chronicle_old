@@ -31,7 +31,8 @@ class News
 
     public function __toString(): string
     {
-        return $this->title . ' ' . $this->dateTime->format("Y-m-d H:i:s");
+        $date = $this->dateTime?->format("Y-m-d H:i:s") ?? '';
+        return $this->title . ' ' . $date;
     }
 
     public function getId(): ?int
