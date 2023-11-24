@@ -46,6 +46,9 @@ class UserProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($newPassword = $form->get('newPassword')->getData()) {
+                if (! is_string($newPassword)) {
+                    throw new \InvalidArgumentException('Wrong password type');
+                }
                 $hashedPassword = $hasher->hashPassword($user, $newPassword);
                 $user->setPassword($hashedPassword);
             }
