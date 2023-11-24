@@ -13,4 +13,22 @@ final readonly class Content
         public string $serviceCenter,
         public string $original,
     ) {}
+
+    public function getStartDateString(string $format): string
+    {
+        if (is_null($this->startDate)) {
+            return '';
+        }
+
+        return $this->startDate->format($format);
+    }
+
+    public function getEndDateString(string $format): string
+    {
+        if (is_null($this->endDate)) {
+            return '';
+        }
+
+        return $this->endDate->format($format);
+    }
 }

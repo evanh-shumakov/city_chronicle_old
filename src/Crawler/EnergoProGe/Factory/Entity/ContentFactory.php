@@ -100,7 +100,7 @@ final class ContentFactory
         return $dateTime;
     }
 
-    public function parseServiceCenter(string $origin): ?string
+    public function parseServiceCenter(string $origin): string
     {
         $startIndicator = 'სერვის ცენტრი :';
         $endIndicator = 'აბონენტი';
