@@ -52,6 +52,11 @@ class UpdateElectricityOutageEntrySampleCommand extends Command
     private function askShouldProceed(SymfonyStyle $io): bool
     {
         $answer = $io->ask('A sample file already exists. Rewrite? (y/n)');
+
+        if (! is_string($answer)) {
+            return false;
+        }
+
         return strtolower($answer) === 'y';
     }
 }
